@@ -1,0 +1,50 @@
+{
+  "name": "gatsby-starter-default",
+  "private": true,
+  "description": "A simple starter to get up and developing quickly with Gatsby and TailwindCSS",
+  "version": "0.3.0",
+  "author": "Kostas Vrouvas <hello@kosvrouvas.com>",
+  "dependencies": {
+    "autoprefixer": "^10.2.6",
+    "gatsby": "^4.0.0-zz-next.1",
+    "gatsby-plugin-google-analytics": "^4.0.0-zz-next.1",
+    "gatsby-plugin-image": "^2.0.0-zz-next.1",
+    "gatsby-plugin-manifest": "^4.0.0-zz-next.1",
+    "gatsby-plugin-offline": "^5.0.0-zz-next.1",
+    "gatsby-plugin-postcss": "^5.0.0-zz-next.1",
+    "gatsby-plugin-purgecss": "^6.0.2",
+    "gatsby-plugin-react-helmet": "^5.0.0-zz-next.1",
+    "gatsby-plugin-sharp": "^4.0.0-zz-next.1",
+    "gatsby-source-filesystem": "^4.0.0-zz-next.1",
+    "gatsby-transformer-sharp": "^4.0.0-zz-next.1",
+    "postcss": "^8.3.4",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.1",
+    "tailwindcss": "^2.1.4"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kosvrouvas/gatsby-tailwindcss-starter"
+  },
+  "bugs": {
+    "url": "https://github.com/kosvrouvas/gatsby-tailwindcss-starter/issues"
+  }
+}
