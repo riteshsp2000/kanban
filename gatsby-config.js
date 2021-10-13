@@ -16,10 +16,7 @@ module.exports = {
     keywords: ['Notes taking app'],
     canonicalUrl: config.siteUrl,
     image: config.siteLogo,
-    author: {
-      name: config.author,
-      minibio: config.siteDescription,
-    },
+    author: config.author,
     organization: {
       name: config.organization,
       url: config.siteUrl,
@@ -34,6 +31,10 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -41,9 +42,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    `gatsby-plugin-image`,
-    `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -69,19 +67,5 @@ module.exports = {
       },
     },
     `gatsby-plugin-offline`,
-    {
-      resolve: `gatsby-plugin-postcss`,
-      options: {
-        postCssPlugins: [require('tailwindcss'), require('autoprefixer')],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-purgecss`,
-      options: {
-        printRejected: false,
-        develop: false,
-        tailwind: true,
-      },
-    },
   ],
 };
