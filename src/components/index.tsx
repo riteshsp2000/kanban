@@ -14,3 +14,5 @@ export { default as Modal } from './Modal';
 
 // Cards
 export { default as Card } from './Card';
+export { default as SectionTitle } from './shared/SectionTitle';
+export { default as CardsColumn } from './CardsColumn';

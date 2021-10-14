@@ -7,8 +7,7 @@ import {
   Body2,
   LargeInput,
   SmallInput,
-  Modal,
-  Card,
+  CardsColumn,
 } from '../components';
 
 const IndexPage = () => {
@@ -39,16 +38,7 @@ const IndexPage = () => {
         spellCheck={false}
       />
 
-      <Card setShow={setShowModal} title={largeinput} description={smallInput} />
-
-      <Modal
-        titleValue={largeinput}
-        titleOnChange={(e) => setLargeInput(e.target.value)}
-        textValue={smallInput}
-        textOnChange={(e) => setSmallInput(e.target.value)}
-        show={showModal}
-        setShow={setShowModal}
-      />
+      <CardsColumn />
     </div>
   );
 };

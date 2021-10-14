@@ -8,17 +8,23 @@ import Heading2 from './typography/Heading2';
 
 const Title = styled(Heading2)`
   color: ${({ color }) => color};
+  width: 100%;
+  height: auto;
+  margin: 0px;
+  padding: 0px;
 `;
 
 const Wrapper = styled.div`
-  width: 12.5rem;
-  height: 1.5rem;
+  width: 100%;
+  height: 2.1rem;
   border-radius: 4px;
   padding: 5px;
 
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  overflow: hidden;
+  background: ${({ color }) => color};
 `;
 
 interface SectionTitleProps {

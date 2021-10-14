@@ -20,6 +20,7 @@ const CardContainer = styled.div`
   height: 70px;
   padding: 0.7rem;
   overflow: hidden;
+  margin-top: 0.7rem;
 
   border-radius: 4px;
   background: var(--color-background-secondary);
@@ -30,7 +31,7 @@ const CardContainer = styled.div`
 `;
 
 interface CardProps {
-  setShow: (param: boolean | ((current: boolean) => boolean)) => void;
+  onClick: () => void;
   title: string | undefined;
   description: string | undefined;
 }
@@ -38,8 +39,8 @@ interface CardProps {
 const limitString = (str: string, length: number) =>
   str.length > length ? `${str.substring(0, length)}...` : str;
 
-const Card: React.FC<CardProps> = ({ setShow, title, description }) => (
-  <CardContainer onClick={() => setShow(true)}>
+const Card: React.FC<CardProps> = ({ onClick, title, description }) => (
+  <CardContainer onClick={onClick}>
     <H2>{title ? limitString(title, 20) : 'Title of this card'}</H2>
     <B2>{description ? limitString(description, 20) : 'Description of this card'}</B2>
   </CardContainer>

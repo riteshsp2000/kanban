@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ChangeEventHandler } from 'react';
+import React, { HTMLAttributes, ChangeEvent } from 'react';
 
 // Libraries
 import styled from 'styled-components';
@@ -43,11 +43,12 @@ const ModalContent = styled.div`
 
 interface ModalProps {
   titleValue: string | undefined;
-  titleOnChange: ChangeEventHandler<HTMLInputElement>;
+  titleOnChange: (e: ChangeEvent<HTMLInputElement>, id: string) => void;
   textValue: string | undefined;
-  textOnChange: ChangeEventHandler<HTMLTextAreaElement>;
+  textOnChange: (e: ChangeEvent<HTMLTextAreaElement>, id: string) => void;
   show: boolean;
-  setShow: (param: boolean | ((current: boolean) => boolean)) => void;
+  setShow: () => void;
+  id: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -57,19 +58,20 @@ const Modal: React.FC<ModalProps> = ({
   textOnChange,
   show,
   setShow,
+  id,
 }) => (
   // @ts-ignore
-  <ModalBackground onClick={() => setShow((current: boolean) => !current)} show={show}>
+  <ModalBackground onClick={setShow} show={show}>
     <ModalContent>
       <LargeInput
         value={titleValue}
-        onChange={titleOnChange}
+        onChange={(e) => titleOnChange(e, id)}
         type='text'
         placeholder='Title of this page'
       />
       <SmallInput
         value={textValue}
-        onChange={textOnChange}
+        onChange={(e) => textOnChange(e, id)}
         spellCheck={false}
         placeholder='Description of this page'
       />
