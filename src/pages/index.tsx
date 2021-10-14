@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 
-import { Heading1, Heading2, Body1, Body2, LargeInput, SmallInput, Modal } from '../components';
+import {
+  Heading1,
+  Heading2,
+  Body1,
+  Body2,
+  LargeInput,
+  SmallInput,
+  Modal,
+  Card,
+} from '../components';
 
 const IndexPage = () => {
   const [largeinput, setLargeInput] = useState<string | undefined>('');
@@ -30,7 +39,7 @@ const IndexPage = () => {
         spellCheck={false}
       />
 
-      <button onClick={() => setShowModal(true)}>Click here</button>
+      <Card setShow={setShowModal} title={largeinput} description={smallInput} />
 
       <Modal
         titleValue={largeinput}

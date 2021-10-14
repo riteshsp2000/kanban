@@ -11,3 +11,6 @@ export { default as SelectInput } from './shared/inputs/Select';
 
 // Modals
 export { default as Modal } from './Modal';
+
+// Cards
+export { default as Card } from './Card';
