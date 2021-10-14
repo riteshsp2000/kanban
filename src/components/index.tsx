@@ -16,3 +16,7 @@ export { default as Modal } from './Modal';
 export { default as Card } from './Card';
 export { default as SectionTitle } from './SectionTitle';
 export { default as CardsColumn } from './CardsColumn';
+
+// Page Layout
+export { default as DesktopNavbar } from './marginals/DesktopNavbar';
+export { default as PageLayout } from './PageLayout';

@@ -8,6 +8,7 @@ import {
   LargeInput,
   SmallInput,
   CardsColumn,
+  PageLayout,
 } from '../components';
 
 const IndexPage = () => {
@@ -16,7 +17,7 @@ const IndexPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
-    <div>
+    <PageLayout>
       <Heading1>Title of this Page</Heading1>
       <Body1>Description of this page if neede and what not etc etc</Body1>
       <Heading2>Title of Card</Heading2>
@@ -39,7 +40,7 @@ const IndexPage = () => {
       />
 
       <CardsColumn />
-    </div>
+    </PageLayout>
   );
 };
 
