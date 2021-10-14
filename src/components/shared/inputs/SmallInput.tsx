@@ -19,8 +19,6 @@ const TextArea = styled.textarea`
   white-space: pre-wrap;
   overflow-wrap: break-word;
   column-count: initial !important;
-  height: auto;
-  max-height: 40vh;
 
   font-family: 'Poppins', sans-serif;
   font-style: normal;
@@ -39,30 +37,30 @@ interface SmallInputProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   ref: any;
 }
 
-const SmallInput: React.FC<SmallInputProps> = (props) => {
-  useEffect(() => {
-    if (props.ref) {
-      props.ref.current.style.height = 'auto';
-    }
-  }, []);
+// const SmallInput: React.FC<SmallInputProps> = (props) => {
+//   useEffect(() => {
+//     if (props.ref) {
+//       props.ref.current.style.height = 'auto';
+//     }
+//   }, []);
 
-  const changeTextArea = () => {
-    if (props.ref) {
-      props.ref.current.style.height = 'auto';
-      props.ref.current.style.height = props.ref.current.scrollHeight + 'px';
-    }
-  };
+//   const changeTextArea = () => {
+//     if (props.ref) {
+//       props.ref.current.style.height = 'auto';
+//       props.ref.current.style.height = props.ref.current.scrollHeight + 'px';
+//     }
+//   };
 
-  return (
-    <TextArea
-      {...props}
-      onChange={(e) => {
-        props.onChange ? props.onChange(e) : null;
-        changeTextArea();
-      }}
-      style={{ height: 'auto' }}
-    />
-  );
-};
+//   return (
+//     <TextArea
+//       {...props}
+//       onChange={(e) => {
+//         props.onChange ? props.onChange(e) : null;
+//         changeTextArea();
+//       }}
+//       style={{ height: 'auto' }}
+//     />
+//   );
+// };
 
-export default SmallInput;
+export default TextArea;

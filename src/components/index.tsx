@@ -8,3 +8,6 @@ export { default as Body2 } from './shared/typography/Body2';
 export { default as LargeInput } from './shared/inputs/LargeInput';
 export { default as SmallInput } from './shared/inputs/SmallInput';
 export { default as SelectInput } from './shared/inputs/Select';
+
+// Modals
+export { default as Modal } from './Modal';

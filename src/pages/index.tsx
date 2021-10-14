@@ -1,11 +1,11 @@
-import React, { useState, useRef, TextareaHTMLAttributes } from 'react';
+import React, { useState } from 'react';
 
-import { Heading1, Heading2, Body1, Body2, LargeInput, SmallInput } from '../components';
+import { Heading1, Heading2, Body1, Body2, LargeInput, SmallInput, Modal } from '../components';
 
 const IndexPage = () => {
   const [largeinput, setLargeInput] = useState<string | undefined>('');
   const [smallInput, setSmallInput] = useState<string | undefined>();
-  const descriptionRef = useRef<TextareaHTMLAttributes<HTMLTextAreaElement>>();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <div>
@@ -24,11 +24,21 @@ const IndexPage = () => {
         }}
       />
       <SmallInput
-        ref={descriptionRef}
         placeholder='Description of this page'
         value={smallInput}
         onChange={(e) => setSmallInput(e.target.value)}
         spellCheck={false}
+      />
+
+      <button onClick={() => setShowModal(true)}>Click here</button>
+
+      <Modal
+        titleValue={largeinput}
+        titleOnChange={(e) => setLargeInput(e.target.value)}
+        textValue={smallInput}
+        textOnChange={(e) => setSmallInput(e.target.value)}
+        show={showModal}
+        setShow={setShowModal}
       />
     </div>
   );
