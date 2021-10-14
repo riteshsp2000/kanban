@@ -5,6 +5,7 @@
   "version": "0.3.0",
   "author": "Kostas Vrouvas <hello@kosvrouvas.com>",
   "dependencies": {
+    "@types/styled-components": "^5.1.15",
     "babel-plugin-styled-components": "^1.13.2",
     "dotenv": "^10.0.0",
     "gatsby": "^4.0.0-zz-next.1",

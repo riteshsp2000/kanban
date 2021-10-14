@@ -5,6 +5,8 @@ import { StaticImage } from 'gatsby-plugin-image';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
+import Select from '../components/shared/Select';
+
 const IndexPage = () => (
   <Layout>
     <SEO title='Home' />
@@ -16,6 +18,8 @@ const IndexPage = () => (
     </div>
     <Link to='/page-2/'>Go to page 2</Link>
     <Link to='/using-typescript/'>Go to "Using TypeScript"</Link>
+
+    <Select />
   </Layout>
 );
 
