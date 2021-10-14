@@ -11,7 +11,7 @@ const Input = styled.input`
   -moz-appearance: none;
   appearance: none;
   background: transparent;
-  padding: 12px;
+  padding: 0.5rem 0.75rem;
 
   font-family: 'Poppins', sans-serif;
   font-style: normal;
@@ -19,6 +19,15 @@ const Input = styled.input`
   font-size: 2.25rem;
   line-height: 3.375rem;
   color: var(--color-primary);
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--color-primary);
+  }
 `;
 
 export default Input;

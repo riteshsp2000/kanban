@@ -8,4 +8,5 @@ export default styled.h1`
   font-size: 2.25rem;
   line-height: 3.375rem;
   color: var(--color-primary);
+  padding: 0.5rem 0.75rem;
 `;

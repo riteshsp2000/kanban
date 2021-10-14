@@ -8,4 +8,5 @@ export default styled.p`
   font-size: 0.75rem;
   line-height: 1.125rem;
   color: var(--color-secondary);
+  padding: 0.5rem 0.75rem;
 `;

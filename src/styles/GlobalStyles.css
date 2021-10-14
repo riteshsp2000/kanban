@@ -195,3 +195,7 @@ table {
   --select-focus: blue;
   --select-arrow: var(--select-border);
 }
+
+body {
+  background: var(--color-background-primary);
+}
