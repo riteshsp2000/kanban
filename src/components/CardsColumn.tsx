@@ -6,6 +6,9 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 // Components
 import { SectionTitle, Card, Modal } from '.';
+import { usePageDetails } from '../store/contexts/PageDetailsProvider';
+import { PAGE_DETAILS } from '../store/types/pageDetails.action';
+import AddCard from './AddCard';
 
 const ColumnContainer = styled.div`
   display: inline-block;
@@ -38,7 +41,14 @@ interface CardsColumnProps {
 }
 
 const CardsColumn: React.FC<CardsColumnProps> = ({ column, tasks, index }) => {
-  console.log(column);
+  const [, dispatch] = usePageDetails();
+
+  const onCardClick = (id: string) =>
+    dispatch({
+      type: PAGE_DETAILS.UPDATE_SELECTED_NOTE,
+      payload: id,
+    });
+
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
@@ -61,9 +71,18 @@ const CardsColumn: React.FC<CardsColumnProps> = ({ column, tasks, index }) => {
                 {...provided.droppableProps}
               >
                 {tasks.map((task, index) => (
-                  <Card onClick={() => {}} key={task.id} task={task} index={index} />
+                  <React.Fragment key={task.id}>
+                    <Card onClick={() => onCardClick(task.id)} task={task} index={index} />
+                    <Modal
+                      columnId={column.id}
+                      title={task.title}
+                      description={task.description}
+                      id={task.id}
+                    />
+                  </React.Fragment>
                 ))}
                 {provided.placeholder}
+                <AddCard columnId={column.id} />
               </div>
             )}
           </Droppable>

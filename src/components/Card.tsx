@@ -5,7 +5,10 @@ import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 
 // Components
-import { Heading2, Body2 } from '.';
+import { Heading2, Body2, Modal } from '.';
+
+// State Handlers
+import { usePageDetails } from '../store/contexts/PageDetailsProvider';
 
 /**
  * H2 is the title of the note
