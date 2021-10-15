@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 
 // Libraries
 import styled from 'styled-components';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 // Components
 import { SectionTitle, Card, Modal } from '.';
@@ -14,76 +15,57 @@ const ColumnContainer = styled.div`
   padding: 0.5rem;
 `;
 
-interface InitialStateObject {
+interface ColumnObject {
+  id: string;
+  color1: string;
+  color2: string;
+  title: string;
+  taskIds: string[];
+}
+
+interface TasksObject {
   id: string;
   title: string;
   description: string;
 }
 
-const initialState = [
-  {
-    id: 'not-started-yet-1',
-    title: 'Hey this is the first Card',
-    description: 'The description for the first card',
-  },
-  {
-    id: 'not-started-yet-2',
-    title: 'Hey this is the first Card',
-    description: 'The description for the first card',
-  },
-  {
-    id: 'not-started-yet-3',
-    title: 'Hey this is the first Card',
-    description: 'The description for the first card',
-  },
-];
+interface CardsColumnProps {
+  column: ColumnObject;
+  tasks: TasksObject[];
+  index: number;
+}
 
-const CardsColumn: React.FC = () => {
-  const [cards, setCards] = useState<InitialStateObject[] | []>(initialState);
-  const [selected, setSelected] = useState<string | undefined>();
-
-  const onModalTitleChange = (e: ChangeEvent<HTMLInputElement>, id: string) =>
-    setCards((current) =>
-      current.map((card) =>
-        id === card.id
-          ? {
-              ...card,
-              title: e.target.value,
-            }
-          : card,
-      ),
-    );
-
-  const onModalDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>, id: string) =>
-    setCards((current) =>
-      current.map((card) =>
-        id === card.id
-          ? {
-              ...card,
-              description: e.target.value,
-            }
-          : card,
-      ),
-    );
-
+const CardsColumn: React.FC<CardsColumnProps> = ({ column, tasks, index }) => {
   return (
-    <ColumnContainer>
-      <SectionTitle title='Not Started yet' color1='#1B3758' color2='#046EF4' />
-      {cards.map(({ id, title, description }) => (
-        <>
-          <Card onClick={() => setSelected(id)} title={title} description={description} />
-          <Modal
-            titleValue={title}
-            textValue={description}
-            titleOnChange={onModalTitleChange}
-            textOnChange={onModalDescriptionChange}
-            show={selected === id}
-            setShow={() => setSelected('unselected-card')}
-            id={id}
+    <Draggable draggableId={column.id} index={index}>
+      {(provided) => (
+        <ColumnContainer ref={provided.innerRef} {...provided.draggableProps}>
+          <SectionTitle
+            {...provided.dragHandleProps}
+            title={column.title}
+            color1={column.color1}
+            color2={column.color2}
           />
-        </>
-      ))}
-    </ColumnContainer>
+          <Droppable droppableId={column.id} type='task'>
+            {(provided, snapshot) => (
+              <div
+                style={{
+                  display: 'inline',
+                  background: snapshot.isDraggingOver ? '#d5f3ff' : 'inherit',
+                }}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {tasks.map((task, index) => (
+                  <Card onClick={() => {}} task={task} index={index} />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </ColumnContainer>
+      )}
+    </Draggable>
   );
 };
 
