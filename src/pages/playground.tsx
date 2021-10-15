@@ -24,7 +24,30 @@ const Container = styled.div`
 
 const NotesContainer = styled.div`
   width: auto;
-  overflow-x: scroll;
+  overflow-x: hidden;
+  padding-bottom: 2rem;
+
+  &:hover {
+    overflow-x: scroll;
+  }
+
+  &::-webkit-scrollbar {
+    width: 2px;
+    height: 5px;
+    display: hidden;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-background-secondary);
+    height: auto;
+    border-radius: 10px;
+    padding-top: 2rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 10px;
+  }
 `;
 
 const initialData = {
