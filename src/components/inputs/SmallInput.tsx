@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, TextareaHTMLAttributes } from 'react';
+import React, { RefObject, useEffect, TextareaHTMLAttributes, ChangeEvent } from 'react';
 
 // Libraries
 import styled from 'styled-components';
@@ -33,34 +33,35 @@ const TextArea = styled.textarea`
   }
 `;
 
-interface SmallInputProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  ref: any;
-}
+const SmallInput: React.FC<TextareaHTMLAttributes<HTMLTextAreaElement>> = (props) => {
+  const changeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    // Reset field height
+    e.target.style.height = 'inherit';
 
-// const SmallInput: React.FC<SmallInputProps> = (props) => {
-//   useEffect(() => {
-//     if (props.ref) {
-//       props.ref.current.style.height = 'auto';
-//     }
-//   }, []);
+    // Get the computed styles for the element
+    const computed = window.getComputedStyle(e.target);
 
-//   const changeTextArea = () => {
-//     if (props.ref) {
-//       props.ref.current.style.height = 'auto';
-//       props.ref.current.style.height = props.ref.current.scrollHeight + 'px';
-//     }
-//   };
+    // Calculate the height
+    const height =
+      parseInt(computed.getPropertyValue('border-top-width'), 10) +
+      parseInt(computed.getPropertyValue('padding-top'), 10) +
+      e.target.scrollHeight +
+      parseInt(computed.getPropertyValue('padding-bottom'), 10) +
+      parseInt(computed.getPropertyValue('border-bottom-width'), 10);
 
-//   return (
-//     <TextArea
-//       {...props}
-//       onChange={(e) => {
-//         props.onChange ? props.onChange(e) : null;
-//         changeTextArea();
-//       }}
-//       style={{ height: 'auto' }}
-//     />
-//   );
-// };
+    e.target.style.height = `${height}px`;
+  };
 
-export default TextArea;
+  return (
+    <TextArea
+      {...props}
+      onChange={(e) => {
+        props.onChange ? props.onChange(e) : null;
+        changeTextArea(e);
+      }}
+      style={{ height: 'auto' }}
+    />
+  );
+};
+
+export default SmallInput;

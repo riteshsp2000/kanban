@@ -12,12 +12,14 @@ const PrimeContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  overflow-x: hidden;
 `;
 
 const WrapperContainer = styled.div`
   width: calc(100vw - 250px);
   height: 100%;
   padding-top: 4rem;
+  overflow-x: hidden;
 `;
 
 const JustifyContainer = styled.div`
