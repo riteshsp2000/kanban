@@ -11,13 +11,15 @@ import { Heading2 } from '..';
 const NavName = styled(Heading2)<{ isActive: boolean }>`
   color: ${({ isActive }) => (isActive ? '#49ACF7' : '#536480')};
   font-weight: ${({ isActive }) => (isActive ? '700' : '500')};
+  padding: 0px;
+  margin-left: 10px;
 `;
 
 const NavItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 12px;
+  margin-top: 16px;
 
   &:hover {
     cursor: pointer;

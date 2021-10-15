@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 2.1rem;
   border-radius: 4px;
-  padding: 5px;
+  padding: 0.7rem;
 
   display: flex;
   align-items: center;
