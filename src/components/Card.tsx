@@ -7,8 +7,8 @@ import { Draggable } from 'react-beautiful-dnd';
 // Components
 import { Heading2, Body2, Modal } from '.';
 
-// State Handlers
-import { usePageDetails } from '../store/contexts/PageDetailsProvider';
+// Types
+import { TaskType } from '../store/types/pageDetails.action';
 
 /**
  * H2 is the title of the note
@@ -43,22 +43,12 @@ const CardContainer = styled.div`
 `;
 
 /**
- * Defines the task structure
- * TODO: Add it in the global scope
- */
-interface TaskObject {
-  id: string;
-  title: string;
-  description: string;
-}
-
-/**
  * Props passed onto the Card component
  */
 interface CardProps {
   onClick: () => void;
   index: number;
-  task: TaskObject;
+  task: TaskType;
 }
 
 // TODO: Shift to utilities directory

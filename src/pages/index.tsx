@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { PAGE_DETAILS } from '../store/types/pageDetails.action';
 import { usePageDetails } from '../store/contexts/PageDetailsProvider';
 
-import { LargeInput, SmallInput, CardsColumn, PageLayout } from '../components';
+import { LargeInput, SmallInput, CardsColumn } from '../components';
 
 resetServerContext();
 

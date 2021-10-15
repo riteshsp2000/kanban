@@ -10,6 +10,9 @@ import { usePageDetails } from '../store/contexts/PageDetailsProvider';
 import { PAGE_DETAILS } from '../store/types/pageDetails.action';
 import AddCard from './AddCard';
 
+// Types
+import { TaskType, ColumnType } from '../store/types/pageDetails.action';
+
 const ColumnContainer = styled.div`
   display: inline-block;
   width: auto;
@@ -20,23 +23,9 @@ const ColumnContainer = styled.div`
   min-width: 240px;
 `;
 
-interface ColumnObject {
-  id: string;
-  color1: string;
-  color2: string;
-  title: string;
-  taskIds: string[];
-}
-
-interface TasksObject {
-  id: string;
-  title: string;
-  description: string;
-}
-
 interface CardsColumnProps {
-  column: ColumnObject;
-  tasks: TasksObject[];
+  column: ColumnType;
+  tasks: TaskType[];
   index: number;
 }
 
