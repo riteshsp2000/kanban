@@ -84,6 +84,28 @@ export default function pageDetailsReducer(
         },
       };
 
+    case PAGE_DETAILS.DELETE_CARD: {
+      const tasks = state.notes.tasks;
+      delete tasks[action.payload.id];
+
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          tasks,
+          columns: {
+            ...state.notes.columns,
+            [action.payload.column]: {
+              ...state.notes.columns[action.payload.column],
+              taskIds: state.notes.columns[action.payload.column].taskIds.filter(
+                (id) => id != action.payload.id,
+              ),
+            },
+          },
+        },
+      };
+    }
+
     default:
       return state;
   }

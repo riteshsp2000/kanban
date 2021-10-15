@@ -2,6 +2,8 @@ import React, { HTMLAttributes, ChangeEvent } from 'react';
 
 // Libraries
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import { LargeInput, SmallInput } from '.';
@@ -35,7 +37,7 @@ const ModalContent = styled.div`
   max-width: 890px;
   min-height: 600px;
 
-  border-radius: 12px;
+  border-radius: 5px;
   padding: 1.5rem 1rem;
   margin: auto auto;
 
@@ -46,13 +48,21 @@ const ModalContent = styled.div`
   z-index: 2;
 `;
 
+const FirstRowContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+
 interface ModalProps {
   title: string | undefined;
   description: string | undefined;
   id: string;
+  columnId: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ title, description, id }) => {
+const Modal: React.FC<ModalProps> = ({ title, description, id, columnId }) => {
   const [state, dispatch] = usePageDetails();
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -84,16 +94,40 @@ const Modal: React.FC<ModalProps> = ({ title, description, id }) => {
     e.stopPropagation();
   };
 
+  // @ts-ignore
+  const onClickDelete = (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+
+    dispatch({
+      type: PAGE_DETAILS.DELETE_CARD,
+      payload: {
+        column: columnId,
+        id: id,
+      },
+    });
+  };
+
   return (
     // @ts-ignore
     <ModalBackground onClick={deSelectNote} show={state.selectedNote === id}>
       <ModalContent onClick={onChildClick}>
-        <LargeInput
-          value={title}
-          onChange={onInputChange}
-          type='text'
-          placeholder='Title of this page'
-        />
+        <FirstRowContainer>
+          <LargeInput
+            value={title}
+            onChange={onInputChange}
+            type='text'
+            placeholder='Title of this page'
+          />
+
+          <FontAwesomeIcon
+            onClick={onClickDelete}
+            icon={faTrashAlt}
+            size='1x'
+            color='var(--color-secondary)'
+            style={{ margin: '0.4rem' }}
+          />
+        </FirstRowContainer>
+
         <SmallInput
           value={description}
           onChange={onTextAreaChange}

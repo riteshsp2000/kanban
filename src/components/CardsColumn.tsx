@@ -73,7 +73,12 @@ const CardsColumn: React.FC<CardsColumnProps> = ({ column, tasks, index }) => {
                 {tasks.map((task, index) => (
                   <React.Fragment key={task.id}>
                     <Card onClick={() => onCardClick(task.id)} task={task} index={index} />
-                    <Modal title={task.title} description={task.description} id={task.id} />
+                    <Modal
+                      columnId={column.id}
+                      title={task.title}
+                      description={task.description}
+                      id={task.id}
+                    />
                   </React.Fragment>
                 ))}
                 {provided.placeholder}

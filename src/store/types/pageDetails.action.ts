@@ -3,40 +3,35 @@ export const initialState = {
   description: undefined,
   selectedNote: undefined,
   notes: {
-    tasks: {
-      'task-1': { id: 'task-1', title: 'card title1', description: 'Description of the card' },
-      'task-2': { id: 'task-2', title: 'card title2', description: 'Description of the card' },
-      'task-3': { id: 'task-3', title: 'card title3', description: 'Description of the card' },
-      'task-4': { id: 'task-4', title: 'card title4', description: 'Description of the card' },
-    },
+    tasks: {},
     columns: {
       'column-1': {
         id: 'column-1',
         color1: 'var(--color-one-light)',
         color2: 'var(--color-one-dark)',
         title: 'Todo',
-        taskIds: ['task-1'],
+        taskIds: [],
       },
       'column-2': {
         id: 'column-2',
         color1: 'var(--color-two-light)',
         color2: 'var(--color-two-dark)',
         title: 'In Progress',
-        taskIds: ['task-2'],
+        taskIds: [],
       },
       'column-3': {
         id: 'column-3',
         color1: 'var(--color-three-light)',
         color2: 'var(--color-three-dark)',
         title: 'Review',
-        taskIds: ['task-3'],
+        taskIds: [],
       },
       'column-4': {
         id: 'column-4',
         color1: 'var(--color-four-light)',
         color2: 'var(--color-four-dark)',
         title: 'Completed',
-        taskIds: ['task-4'],
+        taskIds: [],
       },
     },
     columnOrder: ['column-1', 'column-2', 'column-3', 'column-4'],
@@ -82,6 +77,7 @@ export enum PAGE_DETAILS {
   UPDATE_PAGE_TITLE = 'Update page title',
   UPDATE_PAGE_DESCRIPTION = 'Update page description',
   ADD_NEW_CARD = 'Add New card in column',
+  DELETE_CARD = 'Delete Card',
 }
 
 export interface UpdatePageTitle {
@@ -126,6 +122,14 @@ export interface AddNewCard {
   };
 }
 
+export interface DeleteCard {
+  type: PAGE_DETAILS.DELETE_CARD;
+  payload: {
+    id: string;
+    column: string;
+  };
+}
+
 export type ActionType =
   | UpdatePageTitle
   | UpdatePageDescription
@@ -133,4 +137,5 @@ export type ActionType =
   | SelectNote
   | UpdateNoteTitle
   | UpdateNoteDescription
-  | AddNewCard;
+  | AddNewCard
+  | DeleteCard;
