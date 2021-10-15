@@ -5,6 +5,10 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { resetServerContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
+// State Handlers
+import { PAGE_DETAILS } from '../store/types/pageDetails.action';
+import { usePageDetails, PageDetailsProvider } from '../store/contexts/PageDetailsProvider';
+
 import {
   Heading1,
   Heading2,
@@ -94,9 +98,7 @@ const initialData = {
 };
 
 const IndexPage = () => {
-  const [largeinput, setLargeInput] = useState<string | undefined>('');
-  const [smallInput, setSmallInput] = useState<string | undefined>();
-  const [data, setData] = useState<any>(initialData);
+  const [state, dispatch] = usePageDetails();
 
   const onDragEnd = (result: any) => {
     const { destination, source, draggableId, type } = result;
@@ -112,20 +114,24 @@ const IndexPage = () => {
 
     //If you're dragging columns
     if (type === 'column') {
-      const newColumnOrder = Array.from(data.columnOrder);
+      const newColumnOrder = Array.from(state.notes.columnOrder);
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
       const newState = {
-        ...data,
+        ...state.notes,
         columnOrder: newColumnOrder,
       };
-      setData(newState);
+      // setData(newState);
+      dispatch({
+        type: PAGE_DETAILS.UPDATE_NOTE_POSITIONS,
+        payload: newState,
+      });
       return;
     }
 
     //Anything below this happens if you're dragging tasks
-    const start = data.columns[source.droppableId];
-    const finish = data.columns[destination.droppableId];
+    const start = state.notes.columns[source.droppableId];
+    const finish = state.notes.columns[destination.droppableId];
 
     //If dropped inside the same column
     if (start === finish) {
@@ -137,13 +143,17 @@ const IndexPage = () => {
         taskIds: newTaskIds,
       };
       const newState = {
-        ...data,
+        ...state.notes,
         columns: {
-          ...data.columns,
+          ...state.notes.columns,
           [newColumn.id]: newColumn,
         },
       };
-      setData(newState);
+      // setData(newState);
+      dispatch({
+        type: PAGE_DETAILS.UPDATE_NOTE_POSITIONS,
+        payload: newState,
+      });
       return;
     }
 
@@ -163,59 +173,72 @@ const IndexPage = () => {
     };
 
     const newState = {
-      ...data,
+      ...state.notes,
       columns: {
-        ...data.columns,
+        ...state.notes.columns,
         [newStart.id]: newStart,
         [newFinish.id]: newFinish,
       },
     };
 
-    setData(newState);
+    // setData(newState);
+    dispatch({
+      type: PAGE_DETAILS.UPDATE_NOTE_POSITIONS,
+      payload: newState,
+    });
   };
 
   return (
-    <PageLayout>
-      <Heading1>Title of this Page</Heading1>
-      <Body1>Description of this page if neede and what not etc etc</Body1>
-      <Heading2>Title of Card</Heading2>
-      <Body2>Description of the card</Body2>
+    <PageDetailsProvider>
+      <PageLayout>
+        <Heading1>Title of this Page</Heading1>
+        <Body1>Description of this page if neede and what not etc etc</Body1>
+        <Heading2>Title of Card</Heading2>
+        <Body2>Description of the card</Body2>
 
-      <LargeInput
-        type='text'
-        placeholder='Title of this page'
-        value={largeinput}
-        onChange={(e) => {
-          console.log(e.target.value);
-          setLargeInput(e.target.value);
-        }}
-      />
-      <SmallInput
-        placeholder='Description of this page'
-        value={smallInput}
-        onChange={(e) => setSmallInput(e.target.value)}
-        spellCheck={false}
-      />
+        <LargeInput
+          type='text'
+          placeholder='Title of this page'
+          value={state.title}
+          onChange={(e) => {
+            dispatch({
+              type: PAGE_DETAILS.UPDATE_PAGE_TITLE,
+              payload: e.target.value,
+            });
+          }}
+        />
+        <SmallInput
+          placeholder='Description of this page'
+          value={state.description}
+          onChange={(e) => {
+            dispatch({
+              type: PAGE_DETAILS.UPDATE_PAGE_DESCRIPTION,
+              payload: e.target.value,
+            });
+          }}
+          spellCheck={false}
+        />
 
-      <NotesContainer>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId='all-columns' direction='horizontal' type='column'>
-            {(provided) => (
-              <Container {...provided.droppableProps} ref={provided.innerRef}>
-                {data.columnOrder.map((id: string, index: number) => {
-                  const column = data.columns[id];
-                  const tasks = column.taskIds.map((taskId: string) => data.tasks[taskId]);
+        <NotesContainer>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId='all-columns' direction='horizontal' type='column'>
+              {(provided) => (
+                <Container {...provided.droppableProps} ref={provided.innerRef}>
+                  {state.notes.columnOrder.map((id: string, index: number) => {
+                    const column = state.notes.columns[id];
+                    const tasks = column.taskIds.map((taskId: string) => state.notes.tasks[taskId]);
 
-                  return (
-                    <CardsColumn key={column.id} column={column} tasks={tasks} index={index} />
-                  );
-                })}
-              </Container>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </NotesContainer>
-    </PageLayout>
+                    return (
+                      <CardsColumn key={column.id} column={column} tasks={tasks} index={index} />
+                    );
+                  })}
+                </Container>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </NotesContainer>
+      </PageLayout>
+    </PageDetailsProvider>
   );
 };
 
