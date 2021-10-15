@@ -8,6 +8,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { SectionTitle, Card, Modal } from '.';
 import { usePageDetails } from '../store/contexts/PageDetailsProvider';
 import { PAGE_DETAILS } from '../store/types/pageDetails.action';
+import AddCard from './AddCard';
 
 const ColumnContainer = styled.div`
   display: inline-block;
@@ -76,6 +77,7 @@ const CardsColumn: React.FC<CardsColumnProps> = ({ column, tasks, index }) => {
                   </React.Fragment>
                 ))}
                 {provided.placeholder}
+                <AddCard columnId={column.id} />
               </div>
             )}
           </Droppable>

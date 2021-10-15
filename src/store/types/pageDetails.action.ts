@@ -81,6 +81,7 @@ export enum PAGE_DETAILS {
   UPDATE_SELECTED_NOTE = 'Update the selected note',
   UPDATE_PAGE_TITLE = 'Update page title',
   UPDATE_PAGE_DESCRIPTION = 'Update page description',
+  ADD_NEW_CARD = 'Add New card in column',
 }
 
 export interface UpdatePageTitle {
@@ -118,10 +119,18 @@ export interface UpdateNoteDescription {
   };
 }
 
+export interface AddNewCard {
+  type: PAGE_DETAILS.ADD_NEW_CARD;
+  payload: {
+    column: string;
+  };
+}
+
 export type ActionType =
   | UpdatePageTitle
   | UpdatePageDescription
   | UpdatNotePostion
   | SelectNote
   | UpdateNoteTitle
-  | UpdateNoteDescription;
+  | UpdateNoteDescription
+  | AddNewCard;

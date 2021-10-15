@@ -58,6 +58,32 @@ export default function pageDetailsReducer(
         },
       };
 
+    case PAGE_DETAILS.ADD_NEW_CARD:
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          tasks: {
+            ...state.notes.tasks,
+            [`task-${Object.keys(state.notes.tasks).length + 1}`]: {
+              id: `task-${Object.keys(state.notes.tasks).length + 1}`,
+              title: undefined,
+              description: undefined,
+            },
+          },
+          columns: {
+            ...state.notes.columns,
+            [action.payload.column]: {
+              ...state.notes.columns[action.payload.column],
+              taskIds: [
+                ...state.notes.columns[action.payload.column].taskIds,
+                `task-${Object.keys(state.notes.tasks).length + 1}`,
+              ],
+            },
+          },
+        },
+      };
+
     default:
       return state;
   }
