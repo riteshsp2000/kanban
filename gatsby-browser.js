@@ -9,7 +9,10 @@ import React from 'react';
 import './src/styles/GlobalStyles.css';
 
 import { PageDetailsProvider } from './src/store/contexts/PageDetailsProvider';
+import { PageLayout } from './src/components';
 
 export const wrapRootElement = ({ element }) => (
-  <PageDetailsProvider>{element}</PageDetailsProvider>
+  <PageDetailsProvider>
+    <PageLayout>{element}</PageLayout>
+  </PageDetailsProvider>
 );

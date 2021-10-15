@@ -6,11 +6,15 @@ import styled from 'styled-components';
 // Components
 import { LargeInput, SmallInput } from '.';
 
-interface ModalProps extends HTMLAttributes<HTMLDivElement> {
+// State Handlers
+import { usePageDetails } from '../store/contexts/PageDetailsProvider';
+import { PAGE_DETAILS } from '../store/types/pageDetails.action';
+
+interface ModalDivProps extends HTMLAttributes<HTMLDivElement> {
   show: boolean;
 }
 
-const ModalBackground = styled.div<ModalProps>`
+const ModalBackground = styled.div<ModalDivProps>`
   display: ${({ show }) => (show ? 'block' : 'none')};
   position: fixed;
   z-index: 1;
@@ -39,44 +43,66 @@ const ModalContent = styled.div`
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
+  z-index: 2;
 `;
 
 interface ModalProps {
-  titleValue: string | undefined;
-  titleOnChange: (e: ChangeEvent<HTMLInputElement>, id: string) => void;
-  textValue: string | undefined;
-  textOnChange: (e: ChangeEvent<HTMLTextAreaElement>, id: string) => void;
-  show: boolean;
-  setShow: () => void;
+  title: string | undefined;
+  description: string | undefined;
   id: string;
 }
 
-const Modal: React.FC<ModalProps> = ({
-  titleValue,
-  titleOnChange,
-  textValue,
-  textOnChange,
-  show,
-  setShow,
-  id,
-}) => (
+const Modal: React.FC<ModalProps> = ({ title, description, id }) => {
+  const [state, dispatch] = usePageDetails();
+
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) =>
+    dispatch({
+      type: PAGE_DETAILS.UPDATE_NOTE_TITLE,
+      payload: {
+        id,
+        value: e.target.value,
+      },
+    });
+
+  const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    dispatch({
+      type: PAGE_DETAILS.UPDATE_NOTE_DESCRIPTION,
+      payload: {
+        id,
+        value: e.target.value,
+      },
+    });
+
+  const deSelectNote = () =>
+    dispatch({
+      type: PAGE_DETAILS.UPDATE_SELECTED_NOTE,
+      payload: undefined,
+    });
+
   // @ts-ignore
-  <ModalBackground onClick={setShow} show={show}>
-    <ModalContent>
-      <LargeInput
-        value={titleValue}
-        onChange={(e) => titleOnChange(e, id)}
-        type='text'
-        placeholder='Title of this page'
-      />
-      <SmallInput
-        value={textValue}
-        onChange={(e) => textOnChange(e, id)}
-        spellCheck={false}
-        placeholder='Description of this page'
-      />
-    </ModalContent>
-  </ModalBackground>
-);
+  const onChildClick = (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+  };
+
+  return (
+    // @ts-ignore
+    <ModalBackground onClick={deSelectNote} show={state.selectedNote === id}>
+      <ModalContent onClick={onChildClick}>
+        <LargeInput
+          value={title}
+          onChange={onInputChange}
+          type='text'
+          placeholder='Title of this page'
+        />
+        <SmallInput
+          value={description}
+          onChange={onTextAreaChange}
+          spellCheck={false}
+          placeholder='Description of this page'
+        />
+      </ModalContent>
+    </ModalBackground>
+  );
+};
 
 export default Modal;

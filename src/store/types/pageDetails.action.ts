@@ -1,6 +1,7 @@
 export const initialState = {
   title: undefined,
   description: undefined,
+  selectedNote: undefined,
   notes: {
     tasks: {
       'task-1': { id: 'task-1', title: 'card title1', description: 'Description of the card' },
@@ -44,8 +45,8 @@ export const initialState = {
 
 export interface TaskType {
   id: string;
-  title: string;
-  description: string;
+  title: string | undefined;
+  description: string | undefined;
 }
 
 export interface ColumnType {
@@ -69,6 +70,7 @@ export interface NotesType {
 export interface InitialStateType {
   title: string | undefined;
   description: string | undefined;
+  selectedNote: string | undefined;
   notes: NotesType;
 }
 
@@ -95,4 +97,31 @@ export interface UpdatNotePostion {
   payload: NotesType;
 }
 
-export type ActionType = UpdatePageTitle | UpdatePageDescription | UpdatNotePostion;
+export interface SelectNote {
+  type: PAGE_DETAILS.UPDATE_SELECTED_NOTE;
+  payload: string | undefined;
+}
+
+export interface UpdateNoteTitle {
+  type: PAGE_DETAILS.UPDATE_NOTE_TITLE;
+  payload: {
+    id: string;
+    value: string | undefined;
+  };
+}
+
+export interface UpdateNoteDescription {
+  type: PAGE_DETAILS.UPDATE_NOTE_DESCRIPTION;
+  payload: {
+    id: string;
+    value: string | undefined;
+  };
+}
+
+export type ActionType =
+  | UpdatePageTitle
+  | UpdatePageDescription
+  | UpdatNotePostion
+  | SelectNote
+  | UpdateNoteTitle
+  | UpdateNoteDescription;

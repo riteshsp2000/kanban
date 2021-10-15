@@ -13,7 +13,7 @@ export default function pageDetailsReducer(
     case PAGE_DETAILS.UPDATE_PAGE_DESCRIPTION:
       return {
         ...state,
-        title: action.payload,
+        description: action.payload,
       };
 
     case PAGE_DETAILS.UPDATE_NOTE_POSITIONS:
@@ -21,6 +21,43 @@ export default function pageDetailsReducer(
         ...state,
         notes: action.payload,
       };
+
+    case PAGE_DETAILS.UPDATE_SELECTED_NOTE:
+      return {
+        ...state,
+        selectedNote: action.payload,
+      };
+
+    case PAGE_DETAILS.UPDATE_NOTE_TITLE:
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          tasks: {
+            ...state.notes.tasks,
+            [action.payload.id]: {
+              ...state.notes.tasks[action.payload.id],
+              title: action.payload.value,
+            },
+          },
+        },
+      };
+
+    case PAGE_DETAILS.UPDATE_NOTE_DESCRIPTION:
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          tasks: {
+            ...state.notes.tasks,
+            [action.payload.id]: {
+              ...state.notes.tasks[action.payload.id],
+              description: action.payload.value,
+            },
+          },
+        },
+      };
+
     default:
       return state;
   }
