@@ -13,6 +13,8 @@ const ColumnContainer = styled.div`
   height: auto;
 
   padding: 0.5rem;
+  width: 240px;
+  min-width: 240px;
 `;
 
 interface ColumnObject {
@@ -36,28 +38,30 @@ interface CardsColumnProps {
 }
 
 const CardsColumn: React.FC<CardsColumnProps> = ({ column, tasks, index }) => {
+  console.log(column);
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
-        <ColumnContainer ref={provided.innerRef} {...provided.draggableProps}>
-          <SectionTitle
-            {...provided.dragHandleProps}
-            title={column.title}
-            color1={column.color1}
-            color2={column.color2}
-          />
+        <ColumnContainer
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <SectionTitle title={column.title} color1={column.color1} color2={column.color2} />
           <Droppable droppableId={column.id} type='task'>
             {(provided, snapshot) => (
               <div
                 style={{
-                  display: 'inline',
-                  background: snapshot.isDraggingOver ? '#d5f3ff' : 'inherit',
+                  flexGrow: 1,
+                  background: snapshot.isDraggingOver ? 'rgba(34, 46, 62, 0.4)' : 'inherit',
+                  minHeight: '100px',
+                  borderRadius: '5px',
                 }}
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
                 {tasks.map((task, index) => (
-                  <Card onClick={() => {}} task={task} index={index} />
+                  <Card onClick={() => {}} key={task.id} task={task} index={index} />
                 ))}
                 {provided.placeholder}
               </div>

@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 
 // Library
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { resetServerContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-
-const Container = styled.div`
-  display: flex;
-`;
 
 import {
   Heading1,
@@ -19,12 +16,26 @@ import {
   PageLayout,
 } from '../components';
 
+resetServerContext();
+
+const Container = styled.div`
+  display: flex;
+`;
+
+const NotesContainer = styled.div`
+  width: auto;
+  overflow-x: scroll;
+`;
+
 const initialData = {
   tasks: {
-    'task-1': { id: 'task-1', title: 'This is card title', description: 'Description of the card' },
-    'task-2': { id: 'task-2', title: 'This is card title', description: 'Description of the card' },
-    'task-3': { id: 'task-3', title: 'This is card title', description: 'Description of the card' },
-    'task-4': { id: 'task-4', title: 'This is card title', description: 'Description of the card' },
+    'task-1': { id: 'task-1', title: 'card title1', description: 'Description of the card' },
+    'task-2': { id: 'task-2', title: 'card title2', description: 'Description of the card' },
+    'task-3': { id: 'task-3', title: 'card title3', description: 'Description of the card' },
+    'task-4': { id: 'task-4', title: 'card title4', description: 'Description of the card' },
+    'task-5': { id: 'task-5', title: 'card title5', description: 'Description of the card' },
+    'task-6': { id: 'task-6', title: 'card title6', description: 'Description of the card' },
+    'task-7': { id: 'task-7', title: 'card title7', description: 'Description of the card' },
   },
   columns: {
     'column-1': {
@@ -32,14 +43,14 @@ const initialData = {
       color1: 'var(--color-one-light)',
       color2: 'var(--color-one-dark)',
       title: 'Todo',
-      taskIds: ['task-1'],
+      taskIds: ['task-1', 'task-5', 'task-6'],
     },
     'column-2': {
       id: 'column-2',
       color1: 'var(--color-two-light)',
       color2: 'var(--color-two-dark)',
       title: 'In Progress',
-      taskIds: ['task-2'],
+      taskIds: ['task-2', 'task-7'],
     },
     'column-3': {
       id: 'column-3',
@@ -163,20 +174,24 @@ const IndexPage = () => {
         spellCheck={false}
       />
 
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId='all-columns' direction='horizontal' type='column'>
-          {(provided) => (
-            <Container {...provided.droppableProps} ref={provided.innerRef}>
-              {data.columnOrder.map((id: string, index: number) => {
-                const column = data.columns[id];
-                const tasks = column.taskIds.map((taskId: string) => data.tasks[taskId]);
+      <NotesContainer>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId='all-columns' direction='horizontal' type='column'>
+            {(provided) => (
+              <Container {...provided.droppableProps} ref={provided.innerRef}>
+                {data.columnOrder.map((id: string, index: number) => {
+                  const column = data.columns[id];
+                  const tasks = column.taskIds.map((taskId: string) => data.tasks[taskId]);
 
-                return <CardsColumn key={column.id} column={column} tasks={tasks} index={index} />;
-              })}
-            </Container>
-          )}
-        </Droppable>
-      </DragDropContext>
+                  return (
+                    <CardsColumn key={column.id} column={column} tasks={tasks} index={index} />
+                  );
+                })}
+              </Container>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </NotesContainer>
     </PageLayout>
   );
 };
