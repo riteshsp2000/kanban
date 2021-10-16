@@ -26,13 +26,23 @@ const NavItem = styled.div`
   }
 `;
 
-const Container = styled.div`
+const Container = styled.div<{ showNavbar: boolean }>`
   width: 250px;
   height: 100vh;
   overflow: hidden;
 
   padding: 5rem 1.5rem;
   background: var(--color-background-secondary);
+
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 9;
+
+  @media (max-width: 700px) {
+    left: ${({ showNavbar }) => (showNavbar ? '0px' : '-100%')};
+    transition: 350ms;
+  }
 `;
 
 const Nav = styled.nav`
@@ -98,14 +108,22 @@ const NAVITEMS = {
   ],
 };
 
-const DesktopNavbar: React.FC = () => {
+const DesktopNavbar: React.FC<{ showNavbar: boolean; toggleShowNavbar: () => void }> = ({
+  showNavbar,
+  toggleShowNavbar,
+}) => {
   const [active, setActive] = useState<string | undefined>('');
 
+  const onNavItemClick = (id: string) => {
+    setActive(id);
+    toggleShowNavbar();
+  };
+
   return (
-    <Container>
+    <Container showNavbar={showNavbar}>
       <Nav>
         {NAVITEMS.SECTION1.map(({ icon, name, id }) => (
-          <NavItem key={id} onClick={() => setActive(id)}>
+          <NavItem key={id} onClick={() => onNavItemClick(id)}>
             <FontAwesomeIcon icon={icon} color={active === id ? '#49ACF7' : '#536480'} />
             <NavName isActive={active === id}>{name}</NavName>
           </NavItem>
@@ -117,7 +135,7 @@ const DesktopNavbar: React.FC = () => {
         </DividerContainer>
 
         {NAVITEMS.SECTION2.map(({ icon, name, id }) => (
-          <NavItem key={id} onClick={() => setActive(id)}>
+          <NavItem key={id} onClick={() => onNavItemClick(id)}>
             <FontAwesomeIcon icon={icon} color={active === id ? '#49ACF7' : '#536480'} />
             <NavName isActive={active === id}>{name}</NavName>
           </NavItem>
