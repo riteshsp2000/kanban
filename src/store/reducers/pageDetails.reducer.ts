@@ -106,6 +106,22 @@ export default function pageDetailsReducer(
       };
     }
 
+    case PAGE_DETAILS.UPDATE_COLUMN_TITLE: {
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          columns: {
+            ...state.notes.columns,
+            [action.payload.id]: {
+              ...state.notes.columns[action.payload.id],
+              title: action.payload.value,
+            },
+          },
+        },
+      };
+    }
+
     default:
       return state;
   }

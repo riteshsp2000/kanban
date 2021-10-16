@@ -78,6 +78,9 @@ export enum PAGE_DETAILS {
   UPDATE_PAGE_DESCRIPTION = 'Update page description',
   ADD_NEW_CARD = 'Add New card in column',
   DELETE_CARD = 'Delete Card',
+  ADD_NEW_COLUMN = 'Add new column',
+  DELETE_COLUMN = 'Delete column',
+  UPDATE_COLUMN_TITLE = 'Update Column Title',
 }
 
 export interface UpdatePageTitle {
@@ -130,6 +133,14 @@ export interface DeleteCard {
   };
 }
 
+export interface UpdateColumnTitle {
+  type: PAGE_DETAILS.UPDATE_COLUMN_TITLE;
+  payload: {
+    id: string;
+    value: string;
+  };
+}
+
 export type ActionType =
   | UpdatePageTitle
   | UpdatePageDescription
@@ -138,4 +149,5 @@ export type ActionType =
   | UpdateNoteTitle
   | UpdateNoteDescription
   | AddNewCard
-  | DeleteCard;
+  | DeleteCard
+  | UpdateColumnTitle;

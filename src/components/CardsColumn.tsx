@@ -46,7 +46,12 @@ const CardsColumn: React.FC<CardsColumnProps> = ({ column, tasks, index }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <SectionTitle title={column.title} color1={column.color1} color2={column.color2} />
+          <SectionTitle
+            columnId={column.id}
+            title={column.title}
+            color1={column.color1}
+            color2={column.color2}
+          />
           <Droppable droppableId={column.id} type='task'>
             {(provided, snapshot) => (
               <div
