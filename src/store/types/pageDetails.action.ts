@@ -141,6 +141,10 @@ export interface UpdateColumnTitle {
   };
 }
 
+export interface AddNewColumn {
+  type: PAGE_DETAILS.ADD_NEW_COLUMN;
+}
+
 export type ActionType =
   | UpdatePageTitle
   | UpdatePageDescription
@@ -150,4 +154,5 @@ export type ActionType =
   | UpdateNoteDescription
   | AddNewCard
   | DeleteCard
-  | UpdateColumnTitle;
+  | UpdateColumnTitle
+  | AddNewColumn;

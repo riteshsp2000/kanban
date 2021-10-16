@@ -13,7 +13,7 @@ import { PAGE_DETAILS } from '../store/types/pageDetails.action';
 
 const Input = styled(LargeInput)`
   color: ${({ color }) => color};
-  width: 100%;
+  width: auto;
   height: auto;
   margin: 0px;
   padding: 0px;
@@ -26,14 +26,6 @@ const Input = styled(LargeInput)`
   line-height: 1.375rem;
 `;
 
-// const Title = styled(Heading2)`
-//   color: ${({ color }) => color};
-//   width: 100%;
-//   height: auto;
-//   margin: 0px;
-//   padding: 0px;
-// `;
-
 const Wrapper = styled.div`
   width: 100%;
   height: 2.1rem;
@@ -42,7 +34,7 @@ const Wrapper = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
   background: ${({ color }) => color};
 `;
@@ -68,7 +60,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, color1, color2, colu
 
   return (
     <Wrapper color={color1}>
-      <Input value={title} onChange={onChange} color={color2} />
+      <Input value={title} placeholder='Section Title' onChange={onChange} color={color2} />
     </Wrapper>
   );
 };

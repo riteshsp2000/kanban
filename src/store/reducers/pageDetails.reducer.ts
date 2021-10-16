@@ -122,6 +122,29 @@ export default function pageDetailsReducer(
       };
     }
 
+    case PAGE_DETAILS.ADD_NEW_COLUMN: {
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          columns: {
+            ...state.notes.columns,
+            [`column-${Object.keys(state.notes.columns).length + 1}`]: {
+              id: `column-${Object.keys(state.notes.columns).length + 1}`,
+              color1: 'var(--color-one-light)',
+              color2: 'var(--color-one-dark)',
+              title: '',
+              taskIds: [],
+            },
+          },
+          columnOrder: [
+            ...state.notes.columnOrder,
+            `column-${Object.keys(state.notes.columns).length + 1}`,
+          ],
+        },
+      };
+    }
+
     default:
       return state;
   }

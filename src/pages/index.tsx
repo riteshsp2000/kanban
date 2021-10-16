@@ -9,7 +9,7 @@ import { PAGE_DETAILS } from '../store/types/pageDetails.action';
 import { usePageDetails } from '../store/contexts/PageDetailsProvider';
 
 // Components
-import { LargeInput, SmallInput, CardsColumn, SEO } from '../components';
+import { LargeInput, SmallInput, CardsColumn, SEO, AddColumn } from '../components';
 
 resetServerContext();
 
@@ -175,6 +175,7 @@ const IndexPage = () => {
                     <CardsColumn key={column.id} column={column} tasks={tasks} index={index} />
                   );
                 })}
+                <AddColumn />
               </Container>
             )}
           </Droppable>
