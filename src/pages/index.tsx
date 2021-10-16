@@ -8,7 +8,8 @@ import styled from 'styled-components';
 import { PAGE_DETAILS } from '../store/types/pageDetails.action';
 import { usePageDetails } from '../store/contexts/PageDetailsProvider';
 
-import { LargeInput, SmallInput, CardsColumn, PageLayout } from '../components';
+// Components
+import { LargeInput, SmallInput, CardsColumn, SEO } from '../components';
 
 resetServerContext();
 
@@ -137,6 +138,7 @@ const IndexPage = () => {
 
   return (
     <>
+      <SEO />
       <LargeInput
         type='text'
         placeholder='Title of this page'

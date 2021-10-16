@@ -20,3 +20,6 @@ export { default as CardsColumn } from './CardsColumn';
 // Page Layout
 export { default as DesktopNavbar } from './marginals/DesktopNavbar';
 export { default as PageLayout } from './PageLayout';
+
+// SEO
+export { default as SEO } from './Head';
