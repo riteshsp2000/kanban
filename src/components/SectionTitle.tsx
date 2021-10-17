@@ -16,6 +16,34 @@ const Container = styled.div`
   position: relative;
 `;
 
+const ColorWrapper = styled.div`
+  width: auto;
+  height: auto;
+  border-radius: 4px;
+  background: var(--color-background-primary);
+`;
+
+const ColorWrapper1 = styled(ColorWrapper)<{ show: boolean }>`
+  position: absolute;
+  top: 107%;
+  width: 100%;
+
+  transform-origin: top;
+  transform: ${({ show }) => (show ? 'rotateX(0deg)' : 'rotateX(-90deg)')};
+  transition: all 0.3s linear;
+`;
+
+const ColorWrapper2 = styled(ColorWrapper)<{ showColors: boolean }>`
+  position: absolute;
+  top: 320%;
+  right: 0;
+  width: 80%;
+
+  transform-origin: top;
+  transform: ${({ showColors }) => (showColors ? 'rotateX(0deg)' : 'rotateX(-90deg)')};
+  transition: all 0.3s linear;
+`;
+
 const Wrapper = styled.div`
   width: 100%;
   height: 2.1rem;
@@ -27,6 +55,8 @@ const Wrapper = styled.div`
   justify-content: space-between;
   overflow: hidden;
   background: ${({ color }) => color};
+
+  transition: all 0.3s linear;
 `;
 
 const Input = styled(LargeInput)`
@@ -42,18 +72,15 @@ const Input = styled(LargeInput)`
   font-weight: normal;
   font-size: 0.875rem;
   line-height: 1.375rem;
+
+  transition: all 0.3s linear;
 `;
 
-const Menu = styled.div<{ show: boolean }>`
-  transform-origin: top;
+const Menu = styled.div`
   background: ${({ color }) => color};
-  transform: ${({ show }) => (show ? 'rotateX(0deg)' : 'rotateX(-90deg)')};
-  transition: transform 0.3s linear;
-
   border-radius: 4px;
-  position: absolute;
-  top: 107%;
-  width: 100%;
+
+  transition: all 0.3s linear;
 `;
 
 const MenuItemWrapper = styled.div`
@@ -69,6 +96,7 @@ const MenuItem = styled(Heading2)`
   height: auto;
   margin: 0px;
   padding: 0px;
+  transition: all 0.3s linear;
 `;
 
 const IconWrapper = styled.div`
@@ -86,6 +114,12 @@ const Icon = styled(FontAwesomeIcon)`
   }
 `;
 
+const ColorMenu = styled.div`
+  background: ${({ color }) => color};
+  border-radius: 4px;
+  transition: all 0.3s linear;
+`;
+
 interface SectionTitleProps {
   title: string;
   columnId: string;
@@ -95,7 +129,8 @@ interface SectionTitleProps {
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title, color1, color2, columnId }) => {
   const [show, setShow] = useState(false);
-  const [, dispatch] = usePageDetails();
+  const [showColors, setShowColors] = useState(false);
+  const [state, dispatch] = usePageDetails();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch({
@@ -106,13 +141,30 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, color1, color2, colu
       },
     });
 
-  const onClick = () => setShow((current) => !current);
+  const onClick = () => {
+    setShow((current) => !current);
+    if (show) {
+      setShowColors(false);
+    }
+  };
 
   const onDeleteClick = () =>
     dispatch({
       type: PAGE_DETAILS.DELETE_COLUMN,
       payload: {
         columnId,
+      },
+    });
+
+  const onClickColors = () => setShowColors((current) => !current);
+
+  const onColorChoose = (color: string, background: string) =>
+    dispatch({
+      type: PAGE_DETAILS.UPDATE_COLUMN_COLOR,
+      payload: {
+        columnId,
+        color,
+        background,
       },
     });
 
@@ -126,18 +178,34 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, color1, color2, colu
         </IconWrapper>
       </Wrapper>
 
-      <Menu show={show} color={color1}>
-        <MenuItemWrapper onClick={onDeleteClick}>
-          <MenuItem color={color2}>Delete</MenuItem>
+      <ColorWrapper1 show={show}>
+        <Menu color={color1}>
+          <MenuItemWrapper onClick={onDeleteClick}>
+            <MenuItem color={color2}>Delete</MenuItem>
 
-          <Icon icon={faTrashAlt} color={color2} />
-        </MenuItemWrapper>
-        <MenuItemWrapper>
-          <MenuItem color={color2}>Color</MenuItem>
+            <Icon icon={faTrashAlt} color={color2} />
+          </MenuItemWrapper>
+          <MenuItemWrapper onClick={onClickColors}>
+            <MenuItem color={color2}>Color</MenuItem>
 
-          <Icon icon={faEyeDropper} color={color2} />
-        </MenuItemWrapper>
-      </Menu>
+            <Icon icon={faEyeDropper} color={color2} />
+          </MenuItemWrapper>
+        </Menu>
+      </ColorWrapper1>
+
+      <ColorWrapper2 showColors={showColors}>
+        <ColorMenu color={color1}>
+          {state.colors.map(({ color, background, name }) => (
+            <MenuItem
+              onClick={() => onColorChoose(color, background)}
+              style={{ padding: '0.3rem 0.7rem' }}
+              color={color}
+            >
+              {name}
+            </MenuItem>
+          ))}
+        </ColorMenu>
+      </ColorWrapper2>
     </Container>
   );
 };

@@ -2,6 +2,48 @@ export const initialState = {
   title: undefined,
   description: undefined,
   selectedNote: undefined,
+  colors: [
+    {
+      background: 'var(--color-one-background)',
+      color: 'var(--color-one)',
+      name: 'Blue',
+    },
+    {
+      background: 'var(--color-two-background)',
+      color: 'var(--color-two)',
+      name: 'Red',
+    },
+    {
+      background: 'var(--color-three-background)',
+      color: 'var(--color-three)',
+      name: 'Green',
+    },
+    {
+      background: 'var(--color-four-background)',
+      color: 'var(--color-four)',
+      name: 'Purple',
+    },
+    {
+      background: 'var(--color-five-background)',
+      color: 'var(--color-five)',
+      name: 'Cyan',
+    },
+    {
+      background: 'var(--color-six-background)',
+      color: 'var(--color-six)',
+      name: 'Orange',
+    },
+    {
+      background: 'var(--color-seven-background)',
+      color: 'var(--color-seven)',
+      name: 'Yellow',
+    },
+    {
+      background: 'var(--color-eight-background)',
+      color: 'var(--color-eight)',
+      name: 'Pink',
+    },
+  ],
   notes: {
     tasks: {},
     columns: {
@@ -62,10 +104,17 @@ export interface NotesType {
   columnOrder: string[];
 }
 
+export interface ColorType {
+  color: string;
+  background: string;
+  name: string;
+}
+
 export interface InitialStateType {
   title: string | undefined;
   description: string | undefined;
   selectedNote: string | undefined;
+  colors: ColorType[];
   notes: NotesType;
 }
 
@@ -81,6 +130,7 @@ export enum PAGE_DETAILS {
   ADD_NEW_COLUMN = 'Add new column',
   DELETE_COLUMN = 'Delete column',
   UPDATE_COLUMN_TITLE = 'Update Column Title',
+  UPDATE_COLUMN_COLOR = 'Update Column Color',
 }
 
 export interface UpdatePageTitle {
@@ -152,6 +202,15 @@ export interface DeleteColumn {
   };
 }
 
+export interface UpdateColumnColor {
+  type: PAGE_DETAILS.UPDATE_COLUMN_COLOR;
+  payload: {
+    columnId: string;
+    color: string;
+    background: string;
+  };
+}
+
 export type ActionType =
   | UpdatePageTitle
   | UpdatePageDescription
@@ -163,4 +222,5 @@ export type ActionType =
   | DeleteCard
   | UpdateColumnTitle
   | AddNewColumn
-  | DeleteColumn;
+  | DeleteColumn
+  | UpdateColumnColor;

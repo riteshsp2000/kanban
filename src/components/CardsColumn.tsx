@@ -17,6 +17,7 @@ const ColumnContainer = styled.div`
   display: inline-block;
   width: auto;
   height: auto;
+  min-height: 25rem;
 
   padding: 0.5rem;
   width: 240px;

@@ -157,6 +157,22 @@ export default function pageDetailsReducer(
       };
     }
 
+    case PAGE_DETAILS.UPDATE_COLUMN_COLOR:
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          columns: {
+            ...state.notes.columns,
+            [action.payload.columnId]: {
+              ...state.notes.columns[action.payload.columnId],
+              color1: action.payload.background,
+              color2: action.payload.color,
+            },
+          },
+        },
+      };
+
     default:
       return state;
   }
