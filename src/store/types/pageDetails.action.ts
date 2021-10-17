@@ -68,15 +68,8 @@ export const initialState = {
         title: 'Review',
         taskIds: [],
       },
-      'column-4': {
-        id: 'column-4',
-        color1: 'var(--color-four-light)',
-        color2: 'var(--color-four-dark)',
-        title: 'Completed',
-        taskIds: [],
-      },
     },
-    columnOrder: ['column-1', 'column-2', 'column-3', 'column-4'],
+    columnOrder: ['column-1', 'column-2', 'column-3'],
   },
 };
 
