@@ -106,6 +106,73 @@ export default function pageDetailsReducer(
       };
     }
 
+    case PAGE_DETAILS.UPDATE_COLUMN_TITLE:
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          columns: {
+            ...state.notes.columns,
+            [action.payload.id]: {
+              ...state.notes.columns[action.payload.id],
+              title: action.payload.value,
+            },
+          },
+        },
+      };
+
+    case PAGE_DETAILS.ADD_NEW_COLUMN:
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          columns: {
+            ...state.notes.columns,
+            [`column-${Object.keys(state.notes.columns).length + 1}`]: {
+              id: `column-${Object.keys(state.notes.columns).length + 1}`,
+              color1: 'var(--color-one-light)',
+              color2: 'var(--color-one-dark)',
+              title: '',
+              taskIds: [],
+            },
+          },
+          columnOrder: [
+            ...state.notes.columnOrder,
+            `column-${Object.keys(state.notes.columns).length + 1}`,
+          ],
+        },
+      };
+
+    case PAGE_DETAILS.DELETE_COLUMN: {
+      const columns = state.notes.columns;
+      delete columns[action.payload.columnId];
+
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          columns,
+          columnOrder: state.notes.columnOrder.filter((id) => id !== action.payload.columnId),
+        },
+      };
+    }
+
+    case PAGE_DETAILS.UPDATE_COLUMN_COLOR:
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          columns: {
+            ...state.notes.columns,
+            [action.payload.columnId]: {
+              ...state.notes.columns[action.payload.columnId],
+              color1: action.payload.background,
+              color2: action.payload.color,
+            },
+          },
+        },
+      };
+
     default:
       return state;
   }

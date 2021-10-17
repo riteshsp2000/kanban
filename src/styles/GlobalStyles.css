@@ -187,6 +187,23 @@ table {
   --color-four-dark: #af52c0;
   --color-four-light: #353352;
 
+  --color-one: rgba(4, 110, 244, 1);
+  --color-one-background: rgba(4, 110, 244, 0.2);
+  --color-two: rgba(252, 62, 22, 1);
+  --color-two-background: rgba(252, 62, 22, 0.2);
+  --color-three: rgba(43, 178, 58, 1);
+  --color-three-background: rgba(43, 178, 58, 0.2);
+  --color-four: rgba(175, 82, 192, 1);
+  --color-four-background: rgba(175, 82, 192, 0.2);
+  --color-five: rgba(79, 209, 238, 1);
+  --color-five-background: rgba(79, 209, 238, 0.2);
+  --color-six: rgba(252, 106, 75, 1);
+  --color-six-background: rgba(252, 106, 75, 0.2);
+  --color-seven: rgba(255, 211, 0, 1);
+  --color-seven-background: rgba(255, 211, 0, 0.2);
+  --color-eight: rgba(255, 71, 126, 1);
+  --color-eight-background: rgba(255, 71, 126, 0.2);
+
   --max-width: 55em;
   --max-width-bleed: 90%;
   --max-width-narrow: 50em;
