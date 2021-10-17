@@ -2,7 +2,6 @@ import React from 'react';
 
 // Libraries
 import styled from 'styled-components';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 // Components
 import { Heading2 } from '.';
