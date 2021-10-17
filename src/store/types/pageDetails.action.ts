@@ -145,6 +145,13 @@ export interface AddNewColumn {
   type: PAGE_DETAILS.ADD_NEW_COLUMN;
 }
 
+export interface DeleteColumn {
+  type: PAGE_DETAILS.DELETE_COLUMN;
+  payload: {
+    columnId: string;
+  };
+}
+
 export type ActionType =
   | UpdatePageTitle
   | UpdatePageDescription
@@ -155,4 +162,5 @@ export type ActionType =
   | AddNewCard
   | DeleteCard
   | UpdateColumnTitle
-  | AddNewColumn;
+  | AddNewColumn
+  | DeleteColumn;

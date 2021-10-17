@@ -106,7 +106,7 @@ export default function pageDetailsReducer(
       };
     }
 
-    case PAGE_DETAILS.UPDATE_COLUMN_TITLE: {
+    case PAGE_DETAILS.UPDATE_COLUMN_TITLE:
       return {
         ...state,
         notes: {
@@ -120,9 +120,8 @@ export default function pageDetailsReducer(
           },
         },
       };
-    }
 
-    case PAGE_DETAILS.ADD_NEW_COLUMN: {
+    case PAGE_DETAILS.ADD_NEW_COLUMN:
       return {
         ...state,
         notes: {
@@ -141,6 +140,19 @@ export default function pageDetailsReducer(
             ...state.notes.columnOrder,
             `column-${Object.keys(state.notes.columns).length + 1}`,
           ],
+        },
+      };
+
+    case PAGE_DETAILS.DELETE_COLUMN: {
+      const columns = state.notes.columns;
+      delete columns[action.payload.columnId];
+
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          columns,
+          columnOrder: state.notes.columnOrder.filter((id) => id !== action.payload.columnId),
         },
       };
     }

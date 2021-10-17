@@ -3,7 +3,7 @@ import React, { ChangeEvent, useState } from 'react';
 // Libraries
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV, faEyeDropper, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import { LargeInput, Heading2 } from '.';
@@ -56,17 +56,29 @@ const Menu = styled.div<{ show: boolean }>`
   width: 100%;
 `;
 
+const MenuItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.7rem;
+`;
+
 const MenuItem = styled(Heading2)`
   color: ${({ color }) => color};
   width: 100%;
   height: auto;
   margin: 0px;
   padding: 0px;
-  padding: 0.4rem 0.7rem;
+`;
+
+const IconWrapper = styled.div`
+  height: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 0.4rem;
 `;
 
 const Icon = styled(FontAwesomeIcon)`
-  width: 45px;
   font-size: 0.8rem;
 
   &:hover {
@@ -96,17 +108,35 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, color1, color2, colu
 
   const onClick = () => setShow((current) => !current);
 
+  const onDeleteClick = () =>
+    dispatch({
+      type: PAGE_DETAILS.DELETE_COLUMN,
+      payload: {
+        columnId,
+      },
+    });
+
   return (
     <Container>
       <Wrapper color={color1}>
         <Input value={title} placeholder='Section Title' onChange={onChange} color={color2} />
 
-        <Icon icon={faEllipsisV} color={color2} onClick={onClick} />
+        <IconWrapper onClick={onClick}>
+          <Icon icon={faEllipsisV} color={color2} />
+        </IconWrapper>
       </Wrapper>
 
       <Menu show={show} color={color1}>
-        <MenuItem color={color2}>Delete</MenuItem>
-        <MenuItem color={color2}>Color</MenuItem>
+        <MenuItemWrapper onClick={onDeleteClick}>
+          <MenuItem color={color2}>Delete</MenuItem>
+
+          <Icon icon={faTrashAlt} color={color2} />
+        </MenuItemWrapper>
+        <MenuItemWrapper>
+          <MenuItem color={color2}>Color</MenuItem>
+
+          <Icon icon={faEyeDropper} color={color2} />
+        </MenuItemWrapper>
       </Menu>
     </Container>
   );
